@@ -33,38 +33,31 @@ public class Peg {
 
     public boolean addDisc(int whichOne)
     {
-        if (discs[0] == 0) {
-            discs[0] = whichOne;
+        if (count == 0 || whichOne < discs[count-1]) {
+            discs[count++] = whichOne;
+            return true;
         }
-        else if (count != numDiscs) {
-            for (int i = discs.length - 2; i >= 0; i--) {
-                if (discs[i] != 0 && whichOne < discs[i]) {
-                  discs[i + 1] = whichOne;
-                 return true;
-                }
-            }
-        }
+
+
         return false;
 
         // TODO add the disc with the given number to the peg.
-        // don't forget to make sure the move is value (no disc on top of a smaller one)
+        // don't forget to make sure the move is valid (no disc on top of a smaller one)
     }
 
     public int popDisc()
     {
-        if (discs[0] == 0) {
+        if (count == 0) {
             return 0;
         }
         else {
-            for (int i = discs.length-1; i >= 0; i--) {
-                if (discs[i] != 0) {
-                    int x = discs[i];
-                    discs[i] = 0;
-                    return x;
-                }
-            }
+            count -= 1;
+            int x = discs[count];
+            discs[count] = 0;
+            return x;
+
         }
-        return 0;
+
         // TODO remove the top disc from the peg.  Return its value.
 
     }
@@ -83,23 +76,24 @@ public class Peg {
     }
     public static void main(String [] arg) {
         Peg p1 = new Peg(1,5);
-        p1.addDisc(3);
-        System.out.println(Arrays.toString(p1.discs));
-        p1.addDisc(2);
-        System.out.println(Arrays.toString(p1.discs));
-        p1.addDisc(4);
-        System.out.println(Arrays.toString(p1.discs));
-        p1.popDisc();
-        System.out.println(Arrays.toString(p1.discs));
+        boolean retVal;
+        retVal = p1.addDisc(3);
+        System.out.println(Arrays.toString(p1.discs) + " retVal: " + retVal);
+        retVal = p1.addDisc(2);
+        System.out.println(Arrays.toString(p1.discs) + " retVal: " + retVal);
+        retVal = p1.addDisc(4);
+        System.out.println(Arrays.toString(p1.discs) + " retVal: " + retVal);
+        int discNum = p1.popDisc();
+        System.out.println(Arrays.toString(p1.discs) + " discNum: " + discNum);
 
-
+        //tried some additional output validation
     }
 
 
 }
 /*
-[3, 0, 0, 0, 0]
-[3, 2, 0, 0, 0]
-[3, 2, 0, 0, 0]
-[3, 0, 0, 0, 0]
+[3, 0, 0, 0, 0] retVal: true
+[3, 2, 0, 0, 0] retVal: true
+[3, 2, 0, 0, 0] retVal: false
+[3, 0, 0, 0, 0] discNum: 2
  */
