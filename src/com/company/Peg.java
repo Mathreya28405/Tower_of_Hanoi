@@ -33,29 +33,38 @@ public class Peg {
 
     public boolean addDisc(int whichOne)
     {
-/*        if (whichOne < discs[discs.length-1]) {
-            return true;
+        if (discs[0] == 0) {
+            discs[0] = whichOne;
         }
-        else {
-            return false;
-        }
-*/
-        for (int i = discs.length-1; i>=0; i--) {
-            if (discs[i] != 0 && whichOne>discs[i]) {
-                discs[i+1] = whichOne;
-                return true;
+        else if (count != numDiscs) {
+            for (int i = discs.length - 2; i >= 0; i--) {
+                if (discs[i] != 0 && whichOne < discs[i]) {
+                  discs[i + 1] = whichOne;
+                 return true;
+                }
             }
         }
         return false;
+
         // TODO add the disc with the given number to the peg.
         // don't forget to make sure the move is value (no disc on top of a smaller one)
     }
 
     public int popDisc()
     {
-        int x = discs[discs.length-1];
-        discs[discs.length-1] = 0;
-        return x;
+        if (discs[0] == 0) {
+            return 0;
+        }
+        else {
+            for (int i = discs.length-1; i >= 0; i--) {
+                if (discs[i] != 0) {
+                    int x = discs[i];
+                    discs[i] = 0;
+                    return x;
+                }
+            }
+        }
+        return 0;
         // TODO remove the top disc from the peg.  Return its value.
 
     }
@@ -82,7 +91,15 @@ public class Peg {
         System.out.println(Arrays.toString(p1.discs));
         p1.popDisc();
         System.out.println(Arrays.toString(p1.discs));
+
+
     }
 
 
 }
+/*
+[3, 0, 0, 0, 0]
+[3, 2, 0, 0, 0]
+[3, 2, 0, 0, 0]
+[3, 0, 0, 0, 0]
+ */
