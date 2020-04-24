@@ -10,7 +10,7 @@ public class HanoiTower {
     {
         // TODO implement constructor
         numDiscs = num;
-        peg1 = new Peg(1, num);
+        peg1 = new Peg(1, num, true);
         peg2 = new Peg(2, num);
         peg3 = new Peg(3, num);
 
@@ -23,15 +23,17 @@ public class HanoiTower {
     private void moveTower(Peg startPeg, Peg endPeg, Peg extraPeg, int numtoMove)
     {
         if (numtoMove == 1) {
-            int y = startPeg.popDisc();
-            endPeg.addDisc(y);
-            System.out.println("Moving disc " + numtoMove + " from " + startPeg + " to " + endPeg);
+            startPeg.moveTopDisc(endPeg);
+            //int y = startPeg.popDisc();
+            //endPeg.addDisc(y);
+            //System.out.println("Moving disc " + numtoMove + " from " + startPeg + " to " + endPeg);
             //System.out.println("Moving disc 1 from " + peg1 + " to " + peg3);
         }
         else {
             moveTower(startPeg, extraPeg, endPeg, numtoMove-1);
-            System.out.println("Moving disc " + numtoMove + " from " + startPeg + " to " + endPeg);
-            endPeg.addDisc(startPeg.popDisc());
+            //System.out.println("Moving disc " + numtoMove + " from " + startPeg + " to " + endPeg);
+            //endPeg.addDisc(startPeg.popDisc());
+            startPeg.moveTopDisc(endPeg);
             moveTower(extraPeg, endPeg, startPeg, numtoMove-1);
         }
         // TODO move discs(number input) from the start peg to the end peg
@@ -40,7 +42,7 @@ public class HanoiTower {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         //start with 2 for num, then 3, then work up to 5
-        HanoiTower ht = new HanoiTower(5);
+        HanoiTower ht = new HanoiTower(3);
         ht.solveTower();
     }
 

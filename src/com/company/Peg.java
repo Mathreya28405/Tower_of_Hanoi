@@ -10,10 +10,20 @@ public class Peg {
 
     public Peg(int p, int num)
     {
+        this(p, num, false);
+    }
+
+    public Peg(int p, int num, boolean start)
+    {
         pegNum = p;
         numDiscs = num;
         discs = new int[num];
         count = 0;
+        if (start) {
+            for (int i = 0; i < num; i++) {
+                addDisc(num - i);
+            }
+        }
     }
 
     public int getPegNum()
@@ -66,7 +76,8 @@ public class Peg {
         int disc = popDisc();
         if (newPeg.addDisc(disc))
         {
-            System.out.println("Moving disc " + disc + " from peg " + pegNum + " to peg " + newPeg.getPegNum());
+            //System.out.println("Moving disc " + disc + " from peg " + pegNum + " to peg " + newPeg.getPegNum());
+            System.out.println("Moving Disc " + disc + " from " + this + " to " + newPeg);
             return true;
         }
         else{
